@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hire Professionals</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      background: #1a1a1a;
+      padding: 20px;
+      box-shadow: 0px 0px 10px #666;
+      border-radius: 10px;
+    }
+    header {
+      background: #2a2a2a;
+      color: #fff;
+      padding: 15px 0;
+      border-radius: 10px;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .tab {
+      padding: 12px 20px;
+      cursor: pointer;
+      background: #444;
+      border: 1px solid #666;
+      border-radius: 5px;
+      margin: 0 5px;
+      transition: background 0.3s;
+    }
+    .tab:hover, .active {
+      background: #555;
+    }
+    .tab-content {
+      display: none;
+    }
+    .active-content {
+      display: block;
+    }
+    .hidden {
+      display: none;
+    }
+    .rating {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+    .rating input {
+      display: none;
+    }
+    .rating label {
+      font-size: 2rem;
+      color: #444;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .rating input:checked ~ label,
+    .rating label:hover,
+    .rating label:hover ~ label {
+      color: #f90;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Hire Professionals for Your Project</h1>
+      <p>Looking for skilled professionals? Select your district and category below to get started!</p>
+    </header>
+    
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('hire')">Hire Professionals</div>
+      <div class="tab" onclick="switchTab('register')">Register as Contractor/Engineer</div>
+    </div>
+    
+    <section id="hire" class="tab-content active-content">
+      <h2>Select Your District</h2>
+      <select id="district" onchange="updateProfessionals()">
+        <option value="">Select District</option>
+        <option value="new_york">New York</option>
+        <option value="san_francisco">San Francisco</option>
+        <option value="miami">Miami</option>
+        <option value="los_angeles">Los Angeles</option>
+      </select>
+      <h2>Select a Service Type</h2>
+      <button onclick="showDetails('civil')">Civil Engineers</button>
+      <button onclick="showDetails('contractor')">Contractors</button>
+      <section id="professionals" class="hidden">
+        <h2>Available Professionals</h2>
+        <div id="professional-list"></div>
+      </section>
+    </section>
+    
+    <section id="register" class="tab-content">
+      <h2>Register as a Contractor or Engineer</h2>
+      <input type="text" id="name" placeholder="Full Name">
+      <input type="text" id="role" placeholder="Role (e.g., Civil Engineer)">
+      <input type="email" id="contact" placeholder="Contact Email">
+      <input type="text" id="location" placeholder="Location">
+      <select id="type">
+        <option value="civil">Civil Engineer</option>
+        <option value="contractor">Contractor</option>
+      </select>
+      <select id="district-register">
+        <option value="new_york">New York</option>
+        <option value="san_francisco">San Francisco</option>
+        <option value="miami">Miami</option>
+        <option value="los_angeles">Los Angeles</option>
+      </select>
+      <button onclick="registerProfessional()">Register</button>
+    </section>
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active-content'));
+      document.querySelectorAll('.tab').forEach(tabElement => tabElement.classList.remove('active'));
+      document.getElementById(tab).classList.add('active-content');
+      document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+    }
+
+    const professionals = [
+      { name: "John Smith", role: "Senior Civil Engineer", contact: "john.smith@email.com", location: "New York, NY", type: "civil", district: "new_york", rating: 4.5 },
+      { name: "Michael Johnson", role: "General Contractor", contact: "michael.johnson@email.com", location: "Miami, FL", type: "contractor", district: "miami", rating: 4.2 },
+      { name: "Emily Davis", role: "Geotechnical Engineer", contact: "emily.davis@email.com", location: "San Francisco, CA", type: "civil", district: "san_francisco", rating: 4.8 },
+      { name: "Sarah Lee", role: "Renovation Contractor", contact: "sarah.lee@email.com", location: "Los Angeles, CA", type: "contractor", district: "los_angeles", rating: 4.6 }
+    ];
+
+    function showDetails(type) {
+      const district = document.getElementById("district").value;
+      if (!district) {
+        alert("Please select a district first.");
+        return;
+      }
+      const professionalList = document.getElementById("professional-list");
+      professionalList.innerHTML = "";
+      const filteredProfessionals = professionals.filter(prof => prof.type === type && prof.district === district);
+      if (filteredProfessionals.length > 0) {
+        filteredProfessionals.forEach(prof => {
+          professionalList.innerHTML += `
+            <div class="professional">
+              <h4>${prof.name} - ${prof.role}</h4>
+              <p><strong>Contact:</strong> ${prof.contact}</p>
+              <p><strong>Location:</strong> ${prof.location}</p>
+              <p><strong>Rating:</strong> ${prof.rating} ⭐</p>
+              <div class="rating">
+                <input type="radio" name="rating-${prof.name}" value="1" id="rating-${prof.name}-1">
+                <label for="rating-${prof.name}-1">★</label>
+                <input type="radio" name="rating-${prof.name}" value="2" id="rating-${prof.name}-2">
+                <label for="rating-${prof.name}-2">★</label>
+                <input type="radio" name="rating-${prof.name}" value="3" id="rating-${prof.name}-3">
+                <label for="rating-${prof.name}-3">★</label>
+                <input type="radio" name="rating-${prof.name}" value="4" id="rating-${prof.name}-4">
+                <label for="rating-${prof.name}-4">★</label>
+                <input type="radio" name="rating-${prof.name}" value="5" id="rating-${prof.name}-5">
+                <label for="rating-${prof.name}-5">★</label>
+              </div>
+              <button onclick="rateProfessional('${prof.name}')">Submit Rating</button>
+            </div>`;
+        });
+      } else {
+        professionalList.innerHTML = "<p>No professionals available in this category for the selected district.</p>";
+      }
+      document.getElementById("professionals").classList.remove("hidden");
+    }
+
+    function registerProfessional() {
+      const name = document.getElementById("name").value;
+      const role = document.getElementById("role").value;
+      const contact = document.getElementById("contact").value;
+      const location = document.getElementById("location").value;
+      const type = document.getElementById("type").value;
+      const district = document.getElementById("district-register").value;
+      professionals.push({ name, role, contact, location, type, district, rating: 0 });
+      alert("Professional registered successfully!");
+    }
+
+    function rateProfessional(name) {
+      const ratingInputs = document.querySelectorAll(`input[name="rating-${name}"]`);
+      let rating = 0;
+      ratingInputs.forEach(input => {
+        if (input.checked) {
+          rating = input.value;
+        }
+      });
+      if (rating > 0) {
+        alert(`You rated ${name} with ${rating} stars!`);
+        // In a real application, you would save the rating to the server here.
+      } else {
+        alert("Please select a rating.");
+      }
+    }
+  </script>
+</body>
+</html>

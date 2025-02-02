@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUILD</title>
+    
+    <style>
+        /* Landing Page Styling */
+        #landingPage {
+            background-image: url(assets/WhatsApp\ Image\ 2025-02-01\ at\ 16.17.57\ \(1\).jpeg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            width: 80%;
+            max-width: 800px;
+            line-height: 1.6;
+            margin: 0 auto;
+        }
+
+        .btn {
+            background-color: #24a0ed;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: 40px;
+        }
+
+        .btn:hover {
+            background-color: #1B82BD;
+        }
+
+        /* Home Page Styling */
+        #homePage {
+            display: none;
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            margin-top: 80px; /* Space for fixed navbar */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Estimator Page */
+        .estimator-container {
+            display: none; /* Hide Estimator by default */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+            width: 50%;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .building-options {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .building-options label, .building-options select {
+            display: block;
+            width: 100%;
+        }
+
+        /* Hire Professionals Styling */
+        .hire-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        .hire-container .container {
+            background: #1a1a1a;
+            padding: 20px;
+            box-shadow: 0px 0px 10px #666;
+            border-radius: 10px;
+            width: 80%;
+        }
+
+        .hire-container header {
+            background: #2a2a2a;
+            color: #fff;
+            padding: 15px 0;
+            border-radius: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            background: #444;
+            border: 1px solid #666;
+            border-radius: 5px;
+            margin: 0 5px;
+            transition: background 0.3s;
+        }
+
+        .tab:hover, .active {
+            background: #555;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .active-content {
+            display: block;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            font-size: 2rem;
+            color: #444;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .rating input:checked ~ label,
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: #f90;
+        }
+
+        /* Materials Page Styling */
+        #materials {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        #materials select {
+            padding: 10px;
+            font-size: 16px;
+            background-color: black;
+            color: white;
+            border: 2px solid white;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #data-table {
+            display: none;
+            margin: 20px auto;
+            width: 50%;
+            border-collapse: collapse;
+            background-color: black;
+        }
+
+        #data-table th, #data-table td {
+            border: 2px solid white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        #data-table th {
+            background-color: white;
+            color: black;
+            font-weight: bold;
+        }
+
+        #data-table td {
+            background-color: black;
+            color: white;
+        }
+         /* About Section Styling */
+         .about-section {
+            margin: 40px auto;
+            max-width: 800px;
+            text-align: left;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .about-section h2 {
+            color: #24a0ed;
+            margin-bottom: 20px;
+        }
+
+        .about-section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .about-section li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Landing Page -->
+    <div id="landingPage">
+        <h1>Welcome to Construction Hub</h1>
+        <p>We provide expert construction solutions, including materials, suppliers, and skilled professionals.</p>
+        <button class="btn" onclick="showHomePage()">Get Started</button>
+    </div>
+
+    <!-- Home Page -->
+    <div id="homePage">
+        <!-- Navigation Bar -->
+        <div class="navbar">
+            <a href="#" onclick="showTab('home')">Home</a>
+            <a href="#" onclick="showTab('estimate')">Estimate</a>
+            <a href="hire.html" onclick="showTab('hire')">Hire</a>
+            <a href="#" onclick="showTab('materials')">Materials</a>
+            <a href="contact.html" onclick="showTab('contact')">Contact</a>
+        </div>
+
+        <!-- Page Content -->
+        <div class="content">
+            <div id="home" class="tab-content">
+                <h1>Home Page</h1>
+                <p>Welcome! You are currently on the Home Page.</p>
+
+                <!-- About Section -->
+                <div class="about-section">
+                    <h2>About Our Services</h2>
+                    <p>At Construction Hub, we offer a wide range of services to meet all your construction needs. Our services include:</p>
+                    <ul>
+                        <li><strong>Material Selection:</strong> Choose from a variety of high-quality construction materials for your project.</li>
+                        <li><strong>Cost Estimation:</strong> Get accurate cost estimates for your construction projects.</li>
+                        <li><strong>Professional Hiring:</strong> Hire skilled contractors and engineers for your construction needs.</li>
+                        <li><strong>Project Planning:</strong> Plan your construction projects with our expert guidance.</li>
+                        <li><strong>Supplier Network:</strong> Connect with trusted suppliers for all your material requirements.</li>
+                        <li><strong>3D Modeling:</strong> Visualize your project with our advanced 3D modeling tools.</li>
+                    </ul>
+                    <p>Our goal is to make your construction journey seamless and efficient. Let us help you build your dream project!</p>
+                </div>
+            </div>
+
+            <div id="estimate" class="tab-content estimator-container">
+                <div class="container">
+                    <h1>Building Estimator</h1>
+                    <label for="building-type">Choose a building type:</label>
+                    <select id="building-type" onchange="showBuildingOptions()">
+                        <option value="">Select</option>
+                        <option value="house">House</option>
+                        <option value="shop">Shop</option>
+                    </select>
+
+                    <div id="house-options" class="building-options">
+                        <label for="area">Select Area (sq ft):</label>
+                        <select id="area">
+                            <option value="500-1000">500-1000</option>
+                            <option value="1001-1500">1001-1500</option>
+                            <option value="1501-2000">1501-2000</option>
+                            <option value="2001-3000">2001-3000</option>
+                            <option value=">3000">Above 3000</option>
+                        </select>
+
+                        <label for="rooms">Number of Rooms:</label>
+                        <select id="rooms">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+
+                        <label for="floor">Floor No:</label>
+                        <select id="floor">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+
+                    <div id="shop-options" class="building-options">
+                        <label for="shop-size">Select Shop Size (sq ft):</label>
+                        <select id="shop-size">
+                            <option value="100-500">100-500</option>
+                            <option value="501-1000">501-1000</option>
+                            <option value="1001-2000">1001-2000</option>
+                        </select>
+
+                        <label for="shop-rooms">Number of Rooms:</label>
+                        <select id="shop-rooms">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+
+                        <label for="shop-floor">Floor No:</label>
+                        <select id="shop-floor">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hire Professionals Tab -->
+            <div id="hire" class="tab-content hire-container">
+                <div class="container">
+                    <header>
+                        <h1>Hire Professionals for Your Project</h1>
+                        <p>Looking for skilled professionals? Select your district and category below to get started!</p>
+                    </header>
+                    
+                    <div class="tabs">
+                        <div class="tab active" onclick="switchTab('hire')">Hire Professionals</div>
+                        <div class="tab" onclick="switchTab('register')">Register as Contractor/Engineer</div>
+                    </div>
+                    
+                    <section id="hire" class="tab-content active-content">
+                        <h2>Select Your District</h2>
+                        <select id="district" onchange="updateProfessionals()">
+                            <option value="">Select District</option>
+                            <option value="kozhikod">Kozhikod</option>
+                            <option value="palakkad">Palakkad</option>
+                            <option value="ernakulam">Ernakulam</option>
+                            <option value="trivandrum">Trivandrum</option>
+                        </select>
+                        <h2>Select a Service Type</h2>
+                        <button onclick="showDetails('civil')">Civil Engineers</button>
+                        <button onclick="showDetails('contractor')">Contractors</button>
+                        <section id="professionals" class="hidden">
+                            <h2>Available Professionals</h2>
+                            <div id="professional-list"></div>
+                        </section>
+                    </section>
+                    
+                    <section id="register" class="tab-content">
+                        <h2>Register as a Contractor or Engineer</h2>
+                        <input type="text" id="name" placeholder="Full Name">
+                        <input type="text" id="role" placeholder="Role (e.g., Civil Engineer)">
+                        <input type="email" id="contact" placeholder="Contact Email">
+                        <input type="text" id="location" placeholder="Location">
+                        <select id="type">
+                            <option value="civil">Civil Engineer</option>
+                            <option value="contractor">Contractor</option>
+                        </select>
+                        <select id="district-register">
+                            <option value="kozhikod">Kozhikod</option>
+                            <option value="palakkad">Palakkad</option>
+                            <option value="ernakulam">Ernakulam</option>
+                            <option value="trivandrum">Trivandrum</option>
+                        </select>
+                        <button onclick="registerProfessional()">Register</button>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Materials Tab -->
+            <div id="materials" class="tab-content">
+                <h1>Select a Material</h1>
+                <label for="options">Choose an item:</label>
+                <select id="options" onchange="displayData()">
+                    <option value="">--Select--</option>
+                    <option value="wood">Wood</option>
+                    <option value="steel">Steel</option>
+                    <option value="concrete">Concrete</option>
+                </select>
+
+                <h2>Material Details</h2>
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Cost</th>
+                            <th>Durability</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample Data for Materials
+        const materialsData = {
+            wood: { material: "Wood", cost: "$2000", durability: "10 years" },
+            steel: { material: "Steel", cost: "$5000", durability: "25 years" },
+            concrete: { material: "Concrete", cost: "$7000", durability: "50 years" }
+        };
+
+        function displayData() {
+            let selectedOption = document.getElementById("options").value;
+            let table = document.getElementById("data-table");
+            let tableBody = table.querySelector("tbody");
+
+            tableBody.innerHTML = "";  // Clear previous data
+
+            if (selectedOption && materialsData[selectedOption]) {
+                let row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${materialsData[selectedOption].material}</td>
+                    <td>${materialsData[selectedOption].cost}</td>
+                    <td>${materialsData[selectedOption].durability}</td>
+                `;
+                tableBody.appendChild(row);
+
+                table.style.display = "table";  // Show table
+            } else {
+                table.style.display = "none";  // Hide table if no selection
+            }
+        }
+
+        function showHomePage() {
+            document.getElementById("landingPage").style.display = "none";
+            document.getElementById("homePage").style.display = "block";
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add("hidden"));
+            document.getElementById(tabName).classList.remove("hidden");
+            if (tabName === "estimate") {
+                document.querySelector('.estimator-container').style.display = "flex";
+            } else if (tabName === "hire") {
+                document.querySelector('.hire-container').style.display = "flex";
+            } else if (tabName === "materials") {
+                document.getElementById("materials").style.display = "flex";
+            } else {
+                document.querySelector('.estimator-container').style.display = "none";
+                document.querySelector('.hire-container').style.display = "none";
+                document.getElementById("materials").style.display = "none";
+            }
+        }
+
+        function showBuildingOptions() {
+            let type = document.getElementById("building-type").value;
+            document.querySelectorAll(".building-options").forEach(opt => opt.style.display = "none");
+            if (type === "house") document.getElementById("house-options").style.display = "block";
+            if (type === "shop") document.getElementById("shop-options").style.display = "block";
+        }
+
+        // Hire Professionals Script
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active-content'));
+            document.querySelectorAll('.tab').forEach(tabElement => tabElement.classList.remove('active'));
+            document.getElementById(tab).classList.add('active-content');
+            document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+        }
+
+        const professionals = [
+            { name: "John Smith", role: "Senior Civil Engineer", contact: "john.smith@email.com", location: "Kozhikod, Kerala", type: "civil", district: "kozhikod", rating: 4.5 },
+            { name: "Michael Johnson", role: "General Contractor", contact: "michael.johnson@email.com", location: "Palakkad, Kerala", type: "contractor", district: "palakkad", rating: 4.2 },
+            { name: "Emily Davis", role: "Geotechnical Engineer", contact: "emily.davis@email.com", location: "Ernakulam, Kerala", type: "civil", district: "ernakulam", rating: 4.8 },
+            { name: "Sarah Lee", role: "Renovation Contractor", contact: "sarah.lee@email.com", location: "Trivandrum, Kerala", type: "contractor", district: "trivandrum", rating: 4.6 }
+        ];
+
+        function showDetails(type) {
+            const district = document.getElementById("district").value;
+            if (!district) {
+                alert("Please select a district first.");
+                return;
+            }
+            const professionalList = document.getElementById("professional-list");
+            professionalList.innerHTML = "";
+            const filteredProfessionals = professionals.filter(prof => prof.type === type && prof.district === district);
+            if (filteredProfessionals.length > 0) {
+                filteredProfessionals.forEach(prof => {
+                    professionalList.innerHTML += `
+                        <div class="professional">
+                            <h4>${prof.name} - ${prof.role}</h4>
+                            <p><strong>Contact:</strong> ${prof.contact}</p>
+                            <p><strong>Location:</strong> ${prof.location}</p>
+                            <p><strong>Rating:</strong> ${prof.rating} ⭐</p>
+                            <div class="rating">
+                                <input type="radio" name="rating-${prof.name}" value="1" id="rating-${prof.name}-1">
+                                <label for="rating-${prof.name}-1">★</label>
+                                <input type="radio" name="rating-${prof.name}" value="2" id="rating-${prof.name}-2">
+                                <label for="rating-${prof.name}-2">★</label>
+                                <input type="radio" name="rating-${prof.name}" value="3" id="rating-${prof.name}-3">
+                                <label for="rating-${prof.name}-3">★</label>
+                                <input type="radio" name="rating-${prof.name}" value="4" id="rating-${prof.name}-4">
+                                <label for="rating-${prof.name}-4">★</label>
+                                <input type="radio" name="rating-${prof.name}" value="5" id="rating-${prof.name}-5">
+                                <label for="rating-${prof.name}-5">★</label>
+                            </div>
+                            <button onclick="rateProfessional('${prof.name}')">Submit Rating</button>
+                        </div>`;
+                });
+            } else {
+                professionalList.innerHTML = "<p>No professionals available in this category for the selected district.</p>";
+            }
+            document.getElementById("professionals").classList.remove("hidden");
+        }
+
+        function registerProfessional() {
+            const name = document.getElementById("name").value;
+            const role = document.getElementById("role").value;
+            const contact = document.getElementById("contact").value;
+            const location = document.getElementById("location").value;
+            const type = document.getElementById("type").value;
+            const district = document.getElementById("district-register").value;
+            professionals.push({ name, role, contact, location, type, district, rating: 0 });
+            alert("Professional registered successfully!");
+        }
+
+        function rateProfessional(name) {
+            const ratingInputs = document.querySelectorAll(`input[name="rating-${name}"]`);
+            let rating = 0;
+            ratingInputs.forEach(input => {
+                if (input.checked) {
+                    rating = input.value;
+                }
+            });
+            if (rating > 0) {
+                alert(`You rated ${name} with ${rating} stars!`);
+                // In a real application, you would save the rating to the server here.
+            } else {
+                alert("Please select a rating.");
+            }
+        }
+    </script>
+</body>
+</html>
