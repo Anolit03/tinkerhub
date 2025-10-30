@@ -1,6 +1,6 @@
-# CONSTRUCTION_APP
+# CONSTRUCTION_HUB
 #tech trek
-Construction App
+Construction Hub
 Overview
 The Construction App is designed to streamline the construction process by providing users with tools to estimate the cost and durability of materials, hire contractors and engineers, and obtain material durability and cost details based on ratings. The app is intended for builders, contractors, engineers, and anyone involved in construction projects.
 
